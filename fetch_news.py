@@ -5,33 +5,38 @@ from datetime import datetime
 SOURCES = {
     "Thailand": {
         "Bangkok Post": "https://www.bangkokpost.com/rss/data/topstories.xml",
-        "The Nation Thailand": "https://www.nationthailand.com/rss",
-        "Reuters": "https://www.reuters.com/world/asia-pacific/rss",
-        "Lianhe Zaobao": "https://www.zaobao.com.sg/rss.xml"
+        "The Nation": "https://www.nationthailand.com/rss",
+        "Reuters": "https://www.reuters.com/world/asia-pacific/thailand/rss",
+        "Lianhe Zaobao": "https://www.zaobao.com.sg/realtime/world/thailand/rss"
     },
     "Cambodia": {
         "Khmer Times": "https://www.khmertimeskh.com/feed/",
-        "Cambodia China Times": "https://www.cc-times.com/feed/",
-        "Cambodian Chinese Daily": "https://www.ccdnews.com/feed/"
+        "Cambodia China Times": "https://www.cctimeskh.com/feed/",
+        "Cambodia Huashang": "https://cc-times.com/feed/"
     },
     "Indonesia": {
         "Antara": "https://en.antaranews.com/rss/news",
-        "Reuters": "https://www.reuters.com/world/asia-pacific/rss",
-        "Lianhe Zaobao": "https://www.zaobao.com.sg/rss.xml"
+        "Reuters": "https://www.reuters.com/world/asia-pacific/indonesia/rss",
+        "Lianhe Zaobao": "https://www.zaobao.com.sg/realtime/world/indonesia/rss"
     }
 }
 
 KEYWORDS = [
-    "scam", "fraud", "trafficking", "cybercrime", "money laundering",
-    "terror", "terrorism", "extremism", "insurgency", "separatist",
-    "security", "military", "army", "police", "defence",
-    "minister", "government", "diplomacy", "bilateral",
-    "talks", "summit", "election",
-    "economy", "trade", "investment", "inflation",
-    "development", "policy",
-    "ASEAN", "border", "regional", "maritime"
-]
+    # 安全 / 犯罪 / 反诈
+    "scam", "fraud", "cybercrime", "online scam", "call center",
+    "human trafficking", "trafficking", "illegal gambling",
+    "terrorism", "counter-terrorism", "extremism",
+    "separatist", "insurgency",
 
+    # 政治 / 外交
+    "government", "minister", "cabinet", "parliament",
+    "foreign ministry", "diplomacy", "bilateral", "multilateral",
+    "ASEAN", "China", "United States",
+
+    # 经济 / 区域安全
+    "economy", "trade", "investment", "sanctions",
+    "border security", "maritime", "South China Sea"
+]
 results = []
 
 for country, feeds in SOURCES.items():
