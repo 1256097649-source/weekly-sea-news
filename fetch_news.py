@@ -3,21 +3,33 @@ import pandas as pd
 from datetime import datetime
 
 SOURCES = {
-    "Indonesia": {
-        "Antara": "https://en.antaranews.com/rss/news"
+    "Thailand": {
+        "Bangkok Post": "https://www.bangkokpost.com/rss/data/topstories.xml",
+        "The Nation Thailand": "https://www.nationthailand.com/rss",
+        "Reuters": "https://www.reuters.com/world/asia-pacific/rss",
+        "Lianhe Zaobao": "https://www.zaobao.com.sg/rss.xml"
     },
     "Cambodia": {
-        "Reuters": "https://www.reuters.com/world/asia-pacific/rss"
+        "Khmer Times": "https://www.khmertimeskh.com/feed/",
+        "Cambodia China Times": "https://www.cc-times.com/feed/",
+        "Cambodian Chinese Daily": "https://www.ccdnews.com/feed/"
     },
-    "Thailand": {
-        "Reuters": "https://www.reuters.com/world/asia-pacific/rss"
+    "Indonesia": {
+        "Antara": "https://en.antaranews.com/rss/news",
+        "Reuters": "https://www.reuters.com/world/asia-pacific/rss",
+        "Lianhe Zaobao": "https://www.zaobao.com.sg/rss.xml"
     }
 }
 
 KEYWORDS = [
-    "security", "crime", "scam", "fraud",
-    "diplomacy", "minister", "defence",
-    "border", "ASEAN"
+    "scam", "fraud", "trafficking", "cybercrime", "money laundering",
+    "terror", "terrorism", "extremism", "insurgency", "separatist",
+    "security", "military", "army", "police", "defence",
+    "minister", "government", "diplomacy", "bilateral",
+    "talks", "summit", "election",
+    "economy", "trade", "investment", "inflation",
+    "development", "policy",
+    "ASEAN", "border", "regional", "maritime"
 ]
 
 results = []
@@ -25,20 +37,22 @@ results = []
 for country, feeds in SOURCES.items():
     for source, url in feeds.items():
         feed = feedparser.parse(url)
+
         for entry in feed.entries:
-            title = entry.title.lower()
-            if any(k in title for k in KEYWORDS):
+            title = entry.get("title", "")
+            if any(k.lower() in title.lower() for k in KEYWORDS):
                 results.append({
                     "country": country,
                     "source": source,
-                    "title": entry.title,
-                    "link": entry.link,
+                    "title": title,
+                    "link": entry.get("link", ""),
                     "published": entry.get("published", "")
                 })
 
 df = pd.DataFrame(results)
+
 today = datetime.now().strftime("%Y-%m-%d")
 filename = f"weekly_news_{today}.csv"
-df.to_csv(filename, index=False)
+df.to_csv(filename, index=False, encoding="utf-8-sig")
 
-print(f"Saved {len(df)} news to {filename}")
+print(f"Saved {len(df)} records to {filename}")
